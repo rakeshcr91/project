@@ -15,6 +15,7 @@ interface.
 - Vote buttons update instantly thanks to a small JavaScript helper
 - Posts feed rendered with a lightweight React component
 - Dedicated admin dashboard at `/admin` to remove posts
+  (accessible from the navbar when logged in as `admin`)
 
 ## Running
 

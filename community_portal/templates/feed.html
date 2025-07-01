@@ -22,8 +22,7 @@
   <p>Please <a href="{{ url_for('login') }}">login</a> to post.</p>
 {% endif %}
 
-<div id="react-feed" data-user="{{ current_user.username if current_user else '' }}" data-admin="{{ 1 if current_user and current_user.username == 'admin' else 0 }}"></div>
-<noscript>
+<div id="react-feed" data-user="{{ current_user.username if current_user else '' }}" data-admin="{{ 1 if current_user and current_user.username == 'admin' else 0 }}">
   <div class="list-group">
   {% for post, score in posts %}
     <div class="list-group-item bg-white rounded shadow-sm mb-3">
@@ -47,7 +46,7 @@
     <p>No posts yet.</p>
   {% endfor %}
   </div>
-</noscript>
+</div>
 {% endblock %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='app.js') }}"></script>
