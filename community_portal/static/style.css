@@ -1,0 +1,9 @@
+body {
+    min-height: 100vh;
+}
+#posts .card {
+    margin-bottom: 1rem;
+}
+.vote-btn {
+    cursor: pointer;
+}
