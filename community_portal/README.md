@@ -13,6 +13,8 @@ interface.
 - Admin user (`admin`) can delete posts
 - Responsive layout using Bootswatch (Lux), Bulma, Foundation and Tailwind for a rich UI
 - Vote buttons update instantly thanks to a small JavaScript helper
+- Posts feed rendered with a lightweight React component
+- Dedicated admin dashboard at `/admin` to remove posts
 
 ## Running
 

@@ -34,6 +34,30 @@ def index():
     )
     return render_template('feed.html', posts=posts)
 
+
+@app.route('/api/posts')
+def api_posts():
+    posts = (
+        db.session.query(
+            Post,
+            db.func.coalesce(db.func.sum(Vote.value), 0).label('score')
+        )
+        .outerjoin(Vote, Vote.post_id == Post.id)
+        .group_by(Post.id)
+        .order_by(db.desc('score'))
+        .all()
+    )
+    data = [
+        {
+            'id': p.Post.id,
+            'content': p.Post.content,
+            'author': p.Post.author.username,
+            'score': p.score,
+        }
+        for p in posts
+    ]
+    return {'posts': data}
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -122,6 +146,24 @@ def delete_post(post_id):
     Vote.query.filter_by(post_id=post_id).delete()
     db.session.commit()
     return redirect(url_for('index'))
+
+
+@app.route('/admin')
+def admin_dashboard():
+    user = User.query.get(session.get('user_id'))
+    if not user or user.username != 'admin':
+        return redirect(url_for('login'))
+    posts = (
+        db.session.query(
+            Post,
+            db.func.coalesce(db.func.sum(Vote.value), 0).label('score')
+        )
+        .outerjoin(Vote, Vote.post_id == Post.id)
+        .group_by(Post.id)
+        .order_by(db.desc('score'))
+        .all()
+    )
+    return render_template('admin.html', posts=posts)
 
 if __name__ == '__main__':
     app.run(debug=True)
