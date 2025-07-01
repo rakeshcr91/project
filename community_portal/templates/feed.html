@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% if current_user %}
+<div class="card mb-4">
+  <div class="card-body">
+    <form action="{{ url_for('post_message') }}" method="post">
+      <div class="mb-3">
+        <label for="content" class="form-label">Message or Link</label>
+        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+      </div>
+      <button class="btn btn-primary">Post</button>
+    </form>
+  </div>
+</div>
+{% else %}
+  <p>Please <a href="{{ url_for('login') }}">login</a> to post.</p>
+{% endif %}
+<div class="list-group">
+{% for p in posts %}
+  <div class="list-group-item">
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="mb-1">{{ p.content }}</p>
+        <small class="text-muted">by {{ p.author.username }} - score {{ p.score }}</small>
+      </div>
+      <div class="ms-3 text-end">
+        {% if current_user %}
+          <a class="btn btn-sm btn-outline-success" href="{{ url_for('vote', post_id=p.id, action='up') }}">▲</a>
+          <a class="btn btn-sm btn-outline-danger" href="{{ url_for('vote', post_id=p.id, action='down') }}">▼</a>
+        {% endif %}
+        {% if current_user and current_user.username == 'admin' %}
+          <a class="btn btn-sm btn-danger" href="{{ url_for('delete_post', post_id=p.id) }}">Delete</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% else %}
+  <p>No posts yet.</p>
+{% endfor %}
+</div>
+{% endblock %}

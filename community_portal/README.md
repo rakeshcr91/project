@@ -1,20 +1,30 @@
 # Community Portal
 
-This is a simple Reddit-style community portal built with plain HTML, CSS and JavaScript. Data is stored in the browser's local storage so no server-side dependencies are required. A tiny Python script (`app.py`) is included to serve the files locally.
+This directory contains a small Reddit-style community site powered by Flask and SQLite.
+It provides user registration, login, posting messages, voting and a minimal admin
+interface.
 
 ## Features
 
-- Register and login (data saved in browser)
-- Post short messages or links
-- Upvote/downvote posts
-- Feed ordered by upvotes
-- Responsive design thanks to Bootstrap
+- Register/login with hashed passwords
+- Post messages or links
+- Upvote/downvote posts (one vote per user)
+- Feed ordered by score
 - Admin user (`admin`) can delete posts
+- Responsive layout using Bootstrap
 
 ## Running
 
-```
-python3 app.py
+Install the requirements (ideally in a virtual environment):
+
+```bash
+pip install -r requirements.txt
 ```
 
-Then open <http://localhost:8000> in your browser.
+Start the development server:
+
+```bash
+python app.py
+```
+
+Open <http://localhost:5000> in your browser.

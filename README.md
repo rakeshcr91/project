@@ -1,3 +1,5 @@
 # Community Portal
 
-This repository contains a simple community portal implemented with HTML, CSS and JavaScript. See the `community_portal/` directory for the application code.
+This repository contains a small Reddit-like application built with Flask.
+All application code resides in the `community_portal/` directory.
+See its README for details and running instructions.

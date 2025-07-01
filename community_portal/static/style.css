@@ -1,9 +1,6 @@
 body {
-    min-height: 100vh;
+    padding-bottom: 4rem;
 }
-#posts .card {
-    margin-bottom: 1rem;
-}
-.vote-btn {
-    cursor: pointer;
+.list-group-item {
+    margin-bottom: 0.5rem;
 }
