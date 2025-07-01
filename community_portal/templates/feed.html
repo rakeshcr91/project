@@ -16,20 +16,20 @@
   <p>Please <a href="{{ url_for('login') }}">login</a> to post.</p>
 {% endif %}
 <div class="list-group">
-{% for p in posts %}
+{% for post, score in posts %}
   <div class="list-group-item">
     <div class="d-flex justify-content-between">
       <div>
-        <p class="mb-1">{{ p.content }}</p>
-        <small class="text-muted">by {{ p.author.username }} - score {{ p.score }}</small>
+        <p class="mb-1">{{ post.content }}</p>
+        <small class="text-muted">by {{ post.author.username }} - score {{ score }}</small>
       </div>
       <div class="ms-3 text-end">
         {% if current_user %}
-          <a class="btn btn-sm btn-outline-success" href="{{ url_for('vote', post_id=p.id, action='up') }}">▲</a>
-          <a class="btn btn-sm btn-outline-danger" href="{{ url_for('vote', post_id=p.id, action='down') }}">▼</a>
+          <a class="btn btn-sm btn-outline-success" href="{{ url_for('vote', post_id=post.id, action='up') }}">▲</a>
+          <a class="btn btn-sm btn-outline-danger" href="{{ url_for('vote', post_id=post.id, action='down') }}">▼</a>
         {% endif %}
         {% if current_user and current_user.username == 'admin' %}
-          <a class="btn btn-sm btn-danger" href="{{ url_for('delete_post', post_id=p.id) }}">Delete</a>
+          <a class="btn btn-sm btn-danger" href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a>
         {% endif %}
       </div>
     </div>

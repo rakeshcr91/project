@@ -22,9 +22,16 @@ def inject_user():
 
 @app.route('/')
 def index():
-    posts = Post.query.outerjoin(Vote).add_columns(
-        Post.id, Post.content, Post.author_id, db.func.coalesce(db.func.sum(Vote.value), 0).label('score'), Post.author
-    ).group_by(Post.id).order_by(db.desc('score')).all()
+    posts = (
+        db.session.query(
+            Post,
+            db.func.coalesce(db.func.sum(Vote.value), 0).label('score')
+        )
+        .outerjoin(Vote, Vote.post_id == Post.id)
+        .group_by(Post.id)
+        .order_by(db.desc('score'))
+        .all()
+    )
     return render_template('feed.html', posts=posts)
 
 @app.route('/register', methods=['GET', 'POST'])
