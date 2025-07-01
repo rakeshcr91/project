@@ -1,0 +1,15 @@
+body {
+    padding-bottom: 4rem;
+    font-family: 'Inter', Arial, sans-serif;
+    background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+}
+
+.list-group-item {
+    margin-bottom: 0.5rem;
+    border: none;
+}
+
+.card {
+    border: none;
+}
+
