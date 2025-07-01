@@ -95,6 +95,24 @@ def vote(post_id, action):
     db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/api/vote/<int:post_id>/<action>', methods=['POST'])
+def api_vote(post_id, action):
+    if 'user_id' not in session:
+        return ('', 401)
+    value = 1 if action == 'up' else -1
+    vote = Vote.query.filter_by(user_id=session['user_id'], post_id=post_id).first()
+    if vote:
+        if vote.value == value:
+            db.session.delete(vote)
+        else:
+            vote.value = value
+    else:
+        vote = Vote(value=value, user_id=session['user_id'], post_id=post_id)
+        db.session.add(vote)
+    db.session.commit()
+    score = db.session.query(db.func.coalesce(db.func.sum(Vote.value), 0)).filter_by(post_id=post_id).scalar()
+    return {'score': score}
+
 @app.route('/delete/<int:post_id>')
 def delete_post(post_id):
     user = User.query.get(session.get('user_id'))
