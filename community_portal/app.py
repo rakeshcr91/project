@@ -9,8 +9,7 @@ app.config['SECRET_KEY'] = 'change_this_secret'
 
 db.init_app(app)
 
-@app.before_first_request
-def create_tables():
+with app.app_context():
     db.create_all()
 
 @app.context_processor
