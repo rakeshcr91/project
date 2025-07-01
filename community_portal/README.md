@@ -11,7 +11,7 @@ interface.
 - Upvote/downvote posts (one vote per user)
 - Feed ordered by score
 - Admin user (`admin`) can delete posts
-- Responsive layout using Bootstrap
+- Responsive layout using Bootstrap, Bulma, Foundation and Tailwind for a rich UI
 
 ## Running
 
